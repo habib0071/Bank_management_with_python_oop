@@ -9,42 +9,52 @@ class Person:
         self.information = Information()
 
 class User(Person):
-    def __init__(self, name, email, address, phone, initial_blance) -> None:
+    def __init__(self, name, email, address, phone, initial_balance) -> None:
         super().__init__(name, email, address, phone)
-        self.__initial_balance = initial_blance
-        self.information.total_amount_of_bank += initial_blance
+        self.initial_balance = initial_balance
         self.loan = None
         self.history = []
+        self.my_balance = initial_balance
 
     def deposit(self, amount):
         if amount > 0:
-            self.__initial_balance += amount
-            self.information.total_amount_of_bank += amount
+            self.initial_balance += amount
+            self.my_balance += amount
             str = f"Deposited ${amount}"
             self.history.append(str)
-            print(f"Deposited ${amount}. New balance: ${self.__initial_balance}")
-            print("The : ",self.information.total_amount_of_bank)
-
         else:
             print('You have to give some money for deposit')
 
     def withdraw(self, amount):
-        if 0 < amount <= self.information.max_withdraw and self.information.min_withdraw <= amount <= self.__initial_balance:
-            self.__initial_balance -= amount
-            self.information.total_amount_of_bank -= amount
+        if 0 < amount <= self.information.max_withdraw and self.information.min_withdraw <= amount <= self.initial_balance:
+            self.initial_balance -= amount
+            self.my_balance -= amount
             str = f"Withdraw ${amount}"
             self.history.append(str)
-            print(f"Withdraw ${amount}. New balance: ${self.__initial_balance}")
-            print("The : ",self.information.total_amount_of_bank)
         else:
             print('Invalid withdrawal amount or insufficient funds.')
+    
 
     def see_history(self):
-        print(self.name)
-        print(self.history)
+        print(f'Name : {self.name}')
+        print()
+        print("History:")
+        for his in self.history:
+            print(his)
 
-            
+    def check_balance(self):
+        print(f'hey! {self.name}. Your balanace is : {self.my_balance}')  
+
+
+    def transfer(self, recipient, amount):
+        if 0 < amount <= self.initial_balance:
+            self.initial_balance -= amount
+            for key, value in self.information.List_of_user.items():
+                if key == recipient:
+                    value.initial_balance += amount
+
 class Employee(Person):
     def __init__(self, name, email, address, phone, type_of_work) -> None:
         super().__init__(name, email, address, phone)
         self.type_of_work = type_of_work
+

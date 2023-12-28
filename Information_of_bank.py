@@ -1,4 +1,3 @@
-
 class Information:
     def __init__(self) -> None:
         self.List_of_user = {}
@@ -11,11 +10,15 @@ class Information:
 
     def see_user(self):
         for key, value in self.List_of_user.items():
-            print(f'Name : {key}')
-            print(f'Email  : {value.email}')
-            print(f'Address: {value.address}')
-            print(f'Phoen  : {value.phone}')
+            print(f'Name    : {key}')
+            print(f'Email   : {value.email}')
+            print(f'Address : {value.address}')
+            print(f'Phone   : {value.phone}')
+            print(f'Balance : {value.initial_balance}')
             print()
-
-    def see_bank_amount(self):
-        print(f'the total amount of bank: {self.total_amount_of_bank}')  
+    
+    def see_total_bank_balance(self):
+        total_balance = sum(user.initial_balance for user in self.List_of_user.values())
+        self.total_amount_of_bank = total_balance
+        print(f'The Total amount of bank {total_balance}')
+    

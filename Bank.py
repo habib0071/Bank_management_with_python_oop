@@ -16,3 +16,4 @@ class Bank:
     def create_employee(self, name, email, address, phone, type_of_work):
         employee = Employee(name, email, address, phone, type_of_work)
         self.information.List_of_employee[name] = employee
+        
